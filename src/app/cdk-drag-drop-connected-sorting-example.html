@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h2>Put {{ number }} acorns in the box.</h2>
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of todo" cdkDrag>
+          <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+          <img src="{{item}}" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mb-4">
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[todoList]"
+        cdkDropListOrientation="horizontal"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <ng-container *ngIf="!done.length">
+          <div class="empty-box-container empty-box">
+            &nbsp;
+          </div>
+        </ng-container>
+        <div class="example-box" *ngFor="let item of done" cdkDrag>
+          <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+          <img src="{{item}}" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-danger mr-4" (click)="check()">Check</button>
+      <button class="btn btn-info" (click)="playAgain()">Play Again</button>
+    </div>
+  </div>
+</div>
